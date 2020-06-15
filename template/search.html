@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cric Pic</title>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'search.css' %}">
+  <link rel="icon" type = "image" href = "{% static 'favicon.ico' %}">
+
+
+</head>
+<body>
+  <div class="outermost-boundary">
+
+    <!-- ########################################## navigation menu ############################### -->
+    <div class = 'nav-div'>
+      <nav>
+          <div class="row">
+              <a href="/"><img src="{% static 'cricpic_logo.png' %}" alt="Cricpic logo" class="logo"></a>
+              <ul class="main-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/match-calender">Match Calender</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li>
+                    <form class="form-inline my-2 my-lg-0" action="/search/{{ id1 }}" method="get">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                      <button class="btn btn-ghost" type="submit">Search</button>
+                    </form>
+                  </li>
+              </ul>
+
+          </div>
+
+      </nav>
+
+    </div>
+
+    <div class = 'search-body-container'>
+      {% for player in player_data %}
+      <div class="image-container">
+        <img src={{ player.imageURL }}  alt= {{ player.fullName}}>
+        <div class = 'name-container'>
+          <h2> {{player.fullName}} </h2>
+          <h3> {{player.country}} </h3>
+
+        </div>
+
+
+      </div>
+
+      <div class="profile-container">
+          <p class="profile" >
+              {{ player.profile }}
+          </p>
+      </div>
+
+      <div class = 'personel'><h2 class = 'personel-information'>Personel Information</h2></div>
+      <div class="profile-container">
+        <table class="table table-striped table-light border rounded-top">
+          <tbody>
+               <tr>
+               <th scope="row">Age</th>
+                <td>{{ player.currentAge}}</td>
+
+              </tr>
+              <tr>
+               <th scope="row">Batting Style</th>
+                  <td>{{ player.battingStyle}}</td>
+
+               </tr>
+               <tr>
+               <th scope="row">Bowling Style</th>
+               <td>{{ player.bowlingStyle }}</td>
+
+              </tr>
+
+              <tr>
+               <th scope="row">Major Teams Affilated with</th>
+               <td>{{ player.majorTeams }}</td>
+
+              </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class = 'personel'><h2 class = 'personel-information'>Batting Information</h2></div>
+
+      <div class="profile-container">
+        <table>
+          <thead>
+               <tr>
+
+                  <th scope="col">League</th>
+                   <th scope="col">50 </th>
+                   <th scope="col">100</th>
+                   <th scope="col">Avg</th>
+                   <th scope="col">Highest Score</th>
+                   <th scope="col">Runs</th>
+                   <th scope="col">Innings</th>
+                   <th scope="col">Matches</th>
+              </tr>
+          </thead>
+          <tbody>
+               <tr>
+               <th scope="row">ODIs</th>
+
+                   <td>{{player.data.batting.ODIs.50 }}</td>
+                   <td>{{player.data.batting.ODIs.100}}</td>
+                   <td>{{player.data.batting.ODIs.Ave}}</td>
+                   <td>{{player.data.batting.ODIs.HS}}</td>
+                   <td>{{player.data.batting.ODIs.Runs}}</td>
+                   <td>{{player.data.batting.ODIs.Inns}}</td>
+                   <td>{{player.data.batting.ODIs.Mat}}</td>
+
+
+              </tr>
+              <tr>
+               <th scope="row">Tests</th>
+                  <td>{{player.data.batting.tests.50}}</td>
+                  <td>{{player.data.batting.tests.100}}</td>
+                  <td>{{player.data.batting.tests.Ave}}</td>
+                  <td>{{player.data.batting.tests.HS}}</td>
+                  <td>{{player.data.batting.tests.Runs}}</td>
+                  <td>{{player.data.batting.tests.Inns}}</td>
+                  <td>{{player.data.batting.tests.Mat}}</td>
+
+
+
+               </tr>
+               <tr>
+               <th scope="row">T20s</th>
+
+                  <td>{{player.data.batting.T20Is.50}}</td>
+                  <td>{{player.data.batting.T20Is.100}}</td>
+                  <td>{{player.data.batting.T20Is.Ave}}</td>
+                  <td>{{player.data.batting.T20Is.HS}}</td>
+                  <td>{{player.data.batting.T20Is.Runs}}</td>
+                  <td>{{player.data.batting.T20Is.Inns}}</td>
+                  <td>{{player.data.batting.T20Is.Mat}}</td>
+
+              </tr>
+
+              <tr>
+               <th scope="row">First class</th>
+
+                  <td>{{player.data.batting.firstClass.50}}</td>
+                  <td>{{player.data.batting.firstClass.100}}</td>
+                  <td>{{player.data.batting.firstClass.Ave}}</td>
+                  <td>{{player.data.batting.firstClass.HS}}</td>
+                  <td>{{player.data.batting.firstClass.Runs}}</td>
+                  <td>{{player.data.batting.firstClass.Inns}}</td>
+                  <td>{{player.data.batting.firstClass.Mat}}</td>
+
+              </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class = 'personel'><h2 class = 'personel-information'>Bowling Information</h2></div>
+
+      <div class="profile-container">
+
+        <table>
+          <thead>
+               <tr>
+
+                  <th scope="col">League</th>
+                   <th scope="col">Best BM </th>
+                   <th scope="col">Economy</th>
+                   <th scope="col">Avg</th>
+                   <th scope="col">Wickts</th>
+                   <th scope="col">Runs</th>
+                   <th scope="col">Innings</th>
+                   <th scope="col">Matches</th>
+              </tr>
+          </thead>
+          <tbody>
+               <tr>
+               <th scope="row">ODIs</th>
+
+                   <td><h8>{{player.data.bowling.ODIs.BBM }}</h8></td>
+                   <td><h8>{{player.data.bowling.ODIs.Econ}}</h8></td>
+                   <td><h8>{{player.data.bowling.ODIs.Ave}}</h8></td>
+                   <td><h8>{{player.data.bowling.ODIs.Wkts}}</h8></td>
+                   <td><h8>{{player.data.bowling.ODIs.Runs}}</h8></td>
+                   <td><h8>{{player.data.bowling.ODIs.Inns}}</h8></td>
+                   <td><h8>{{player.data.bowling.ODIs.Mat}}</h8></td>
+
+
+              </tr>
+              <tr>
+              <th scope="row">Tests</th>
+                  <td><h8>{{ player.data.bowling.tests.BBM }}</h8></td>
+                   <td><h8>{{player.data.bowling.tests.Econ}}</h8></td>
+                   <td><h8>{{player.data.bowling.tests.Ave}}</h8></td>
+                   <td><h8>{{player.data.bowling.tests.Wkts}}</h8></td>
+                   <td><h8>{{player.data.bowling.tests.Runs}}</h8></td>
+                   <td><h8>{{player.data.bowling.tests.Inns}}</h8></td>
+                   <td><h8>{{player.data.bowling.tests.Mat}}</h8></td>
+
+
+
+               </tr>
+               <tr>
+               <th scope="row">T20s</th>
+
+                  <td><h8>{{ player.data.bowling.T20Is.BBM }}</h8></td>
+                   <td><h8>{{player.data.bowling.T20Is.Econ}}</h8></td>
+                   <td><h8>{{player.data.bowling.T20Is.Ave}}</h8></td>
+                   <td><h8>{{player.data.bowling.T20Is.Wkts}}</h8></td>
+                   <td><h8>{{player.data.bowling.T20Is.Runs}}</h8></td>
+                   <td><h8>{{player.data.bowling.T20Is.Inns}}</h8></td>
+                   <td><h8>{{player.data.bowling.T20Is.Mat}}</h8></td>
+
+              </tr>
+
+              <tr>
+               <th scope="row">First class</th>
+
+                  <td><h8>{{ player.data.bowling.firstClass.BBM }}</h8></td>
+                   <td><h8>{{player.data.bowling.firstClass.Econ}}</h8></td>
+                   <td><h8>{{player.data.bowling.firstClass.Ave}}</h8></td>
+                   <td><h8>{{player.data.bowling.firstClass.Wkts}}</h8></td>
+                   <td><h8>{{player.data.bowling.firstClass.Runs}}</h8></td>
+                   <td><h8>{{player.data.bowling.firstClass.Inns}}</h8></td>
+                   <td><h8>{{player.data.bowling.firstClass.Mat}}</h8></td>
+
+              </tr>
+          </tbody>
+        </table>
+
+       </div>
+
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+  <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/normalize.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/grid.css' %}">
+  <link rel="stylesheet" type = 'text/css' href="{% static 'main.css' %}">
+  <link rel="icon" type = "image" href = "{% static 'favicon.ico' %}">
+
+  <script type="text/javascript" src = "{% static 'js/jquery-3.5.1.js' %}"></script>
+  <script type="text/javascript" src = "{% static 'js/main.js' %}"></script>
+
+  <title>Cric Pic</title>
+</head>
+<body>
+  <header>
+      <nav>
+          <div class="row">
+              <a href="/"><img src="{% static 'cricpic_logo.png' %}" alt="Cricpic logo" class="logo"></a>
+              <ul class="main-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/match-calender">Match Calender</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li>
+                    <form class="form-inline my-2 my-lg-0" action="/search/{{ id1 }}" method="get">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                      <button class="btn btn-ghost" type="submit">Search</button>
+                    </form>
+                  </li>
+              </ul>
+
+          </div>
+
+      </nav>
+      <div class="hero-text-box">
+          <h1>Welcome to cric pic<br> An accurate predictive system.</h1>
+          <a class="btn btn-full jss-live-score-btn" href="#">Live Score</a>
+          <a class="btn btn-ghost jss-predict-score-btn" href="#">Predict Match</a>
+      </div>
+
+
+  </header>
+
+  <section class="section-features jss-scroll-section">
+      <div class="row">
+          <h2 class = live-score-heading>Live Score</h2>
+
+      </div>
+
+      {% for match in matches %}
+      {% if match.matchStarted %}
+      {% for score in live_score %}
+
+      <div class="row">
+          <div class="col span-1-of-4 box live-score-section">
+              <i class="icon ion-md-infinite icon-big"></i>
+              <h3>{{ score.team_1 }} vs {{ score.team_2 }}</h3>
+
+              {% if score.stat %}
+              <p>{{ score.stat }}</p>
+
+              {% else %}
+              <p>Match did not start due to unavoidable condition!!!!! </p>
+
+              {% endif %}
+
+
+          </div>
+
+          {% endfor %}
+      {% else %}
+      <div class="row">
+          <div class="col span-1-of-4 box live-score-section">
+              <i class="icon ion-md-infinite icon-big"></i>
+              <h3>{{ match.team_1 }} vs {{ match.team_2 }}</h3>
+
+              <p>Date: {{ match.date }}</p>
+
+              <p>Match not yet started </p>
+
+          {% endif %}
+
+
+          </div>
+
+          {% endfor %}
+
+      </div>
+
+  </section>
+
+
+  <section class="section-efficiency jss-section-efficiency">
+            <div class="row">
+                <h2 class="live-score-heading">calculate player efficiency.</h2>
+                <p>
+                  Since, there are no ongoing matches currently due to COVID19 condition. We are taking the previous match as the
+                  sample match and calculating the efficieny of each player of the squad by taking into account distinct parameters.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col span-1-of-2 box">
+                    <i class="icon ion-md-infinite icon-big"></i>
+                    <h3>India vs Australia</h3>
+                    <br>
+                    <a class="btn btn-ghost" href="/custom_team/1144999">Predict Match</a>
+
+
+                </div>
+                <div class="col span-1-of-2 box">
+                    <i class="icon ion-md-stopwatch icon-big"></i>
+                    <h3>India vs England</h3>
+                    <br>
+                    <a class="btn btn-ghost" href="/custom_team/1119553">Predict Match</a>
+                </div>
+            </div>
+
+        </section>
+
+
+</script>
+
+</body>
+</html>
